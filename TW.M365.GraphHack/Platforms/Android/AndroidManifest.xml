@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+	<application android:allowBackup="true" android:icon="@mipmap/appicon" android:roundIcon="@mipmap/appicon_round" android:supportsRtl="true">
+		<activity android:name="microsoft.identity.client.BrowserTabActivity"  android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="msal99bf0f5c-99de-43fd-9815-036a1ebcb01c" android:host="auth" />
+			</intent-filter>
+		</activity>
+		<activity android:name="TW.M365.GraphHack.MsalActivity"  android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="msal99bf0f5c-99de-43fd-9815-036a1ebcb01c" android:host="auth" />
+			</intent-filter>
+		</activity>
+		<meta-data android:name="com.microsoft.identity.client.client_id" android:value="99bf0f5c-99de-43fd-9815-036a1ebcb01c" />
+	</application>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+</manifest>

@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31611.283
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TW.M365.GraphHack", "TW.M365.GraphHack\TW.M365.GraphHack.csproj", "{F5DF3A96-476A-4D22-872E-332137ABC275}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.M365.GraphHack.Lib", "TW.M365.GraphHack.Lib\TW.M365.GraphHack.Lib.csproj", "{6842BFB8-AFD3-4F9E-B47C-0904A2060F95}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5DF3A96-476A-4D22-872E-332137ABC275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5DF3A96-476A-4D22-872E-332137ABC275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5DF3A96-476A-4D22-872E-332137ABC275}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F5DF3A96-476A-4D22-872E-332137ABC275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5DF3A96-476A-4D22-872E-332137ABC275}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5DF3A96-476A-4D22-872E-332137ABC275}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6842BFB8-AFD3-4F9E-B47C-0904A2060F95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6842BFB8-AFD3-4F9E-B47C-0904A2060F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6842BFB8-AFD3-4F9E-B47C-0904A2060F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6842BFB8-AFD3-4F9E-B47C-0904A2060F95}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
+	EndGlobalSection
+EndGlobal
