@@ -16,19 +16,21 @@ namespace TW.M365.GraphHack.Lib.GameManager
         public bool OnGoing { get; set; } = false;
         public bool PlayerWon { get; set; } = false;
         public bool CurrentPlayerMove { get; set; } = false;
+        protected bool UserIsUser1 { get; set; } = false;
         public TicTacToeManager(ISubscriptionService<TicTacToeState> subscriptionService)
         {
-            _subscriptionService = _subscriptionService;
+            _subscriptionService = subscriptionService;
         }
         public async Task StartGame(int tileNumber)
         {
+            UserIsUser1 = true;
             string gameId = Guid.NewGuid().ToString();
             GameState = new TicTacToeState()
             {
                 GameId = gameId,
                 User1Moves = new List<int>() { tileNumber }
             };
-            await _subscriptionService.RegisterUpdateSubscription(gameId, GameState);
+            await _subscriptionService.RegisterUpdateSubscription($"TicTacToe/{gameId}", GameState);
             _subscriptionService.OnRemoteUpdate += _subscriptionService_OnRemoteUpdate;
             OnGoing = true;
         }
@@ -46,7 +48,7 @@ namespace TW.M365.GraphHack.Lib.GameManager
 
         public async Task JoinGame(string gameId)
         {
-            
+            UserIsUser1 = false;
         }
         /// <summary>
         /// Returns true if move is valid
@@ -63,7 +65,14 @@ namespace TW.M365.GraphHack.Lib.GameManager
             {
                 return false;
             }
-            GameState.User1Moves.Add(tileNumber);
+            if (UserIsUser1)
+            {
+                GameState.User1Moves.Add(tileNumber);
+            }
+            else
+            {
+                GameState.User2Moves.Add(tileNumber);
+            }
             await _subscriptionService.PushUpdate(GameState);
             return true;
         }
