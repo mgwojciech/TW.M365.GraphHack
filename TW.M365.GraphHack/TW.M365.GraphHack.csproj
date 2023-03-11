@@ -12,10 +12,10 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>TW.M365.GraphHack</ApplicationTitle>
+		<ApplicationTitle>TicTacToe</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.tw.m365.graphhack</ApplicationId>
+		<ApplicationId>com.twm365.tictactoe</ApplicationId>
 		<ApplicationIdGuid>0ff179a1-25c7-4ddd-921f-91ac6782fec8</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -30,6 +30,15 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	  <CodesignKey>iPhone Developer: Created via API (KKNT87SZJA)</CodesignKey>
+	  <CodesignProvision>Automatic</CodesignProvision>
+	  <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />

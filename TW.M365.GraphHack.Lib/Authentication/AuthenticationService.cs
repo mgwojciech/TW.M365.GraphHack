@@ -8,7 +8,7 @@ namespace TW.M365.GraphHack.Lib.Authentication
     public class AuthenticationService : IAADClientAuthenticator
     {
         protected IPublicClientApplication PublicClientApp { get; }
-        public string[] Scopes { get; set; } = new string[] {
+        public string[] Scopes { get; set; } = new string[] { // move these to AppConstants? or somewhere else in app level
             "https://graph.microsoft.com/User.Read",
             "https://graph.microsoft.com/Calendars.Read" ,
             "https://graph.microsoft.com/Calendars.Read.Shared" ,
@@ -23,7 +23,8 @@ namespace TW.M365.GraphHack.Lib.Authentication
         {
             ParentWindow = parentWindow;
             PublicClientApp = PublicClientApplicationBuilder.Create(appInfo.ClientId)
-        .WithRedirectUri(appInfo.RedirectUri)
+                    .WithRedirectUri(appInfo.RedirectUri)
+                    .WithIosKeychainSecurityGroup("com.microsoft.adalcache")
         .WithAuthority(appInfo.Authority)
         .Build();
         }
@@ -71,7 +72,8 @@ namespace TW.M365.GraphHack.Lib.Authentication
             {
                 var authResult = PublicClientApp.AcquireTokenInteractive(Scopes)
                                         //.WithPrompt(Prompt.ForceLogin)
-                                        .WithSystemWebViewOptions(new SystemWebViewOptions())
+                                        .WithUseEmbeddedWebView(true)
+                                        //.WithSystemWebViewOptions(new SystemWebViewOptions())
                                         .WithParentActivityOrWindow(ParentWindow)
                                         .ExecuteAsync()
                                         .ConfigureAwait(false).GetAwaiter().GetResult();
