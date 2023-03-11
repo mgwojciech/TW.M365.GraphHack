@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using TW.M365.GraphHack.Lib.Authentication;
 using TW.M365.GraphHack.Lib.HttpHandlers;
+using TW.M365.GraphHack.Lib.Services;
+using TW.M365.GraphHack.Views;
 
 namespace TW.M365.GraphHack;
 
@@ -29,14 +31,13 @@ public static class MauiProgram
             return new AuthenticationService(clientAppInfo, PlatformConfig.Instance.ParentWindow);
 
         });
-
         builder.Services.AddSingleton<HttpClient>(services =>
         {
             IAADClientAuthenticator aadClientAuthenticator = services.GetRequiredService<IAADClientAuthenticator>();
             return new HttpClient(new GraphHttpHandler(aadClientAuthenticator));
         });
-
         builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<IPeopleService, GraphPeopleService>();
 
 #if DEBUG
         builder.Logging.AddDebug();

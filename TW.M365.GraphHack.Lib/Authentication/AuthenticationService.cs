@@ -14,6 +14,7 @@ namespace TW.M365.GraphHack.Lib.Authentication
             "https://graph.microsoft.com/Calendars.Read.Shared" ,
             "https://graph.microsoft.com/Sites.Read.All" ,
             "https://graph.microsoft.com/Team.ReadBasic.All",
+            "https://graph.microsoft.com/Presence.Read",
             "https://graph.microsoft.com/People.Read" };
         protected object ParentWindow { get; set; }
         public string AadDomain { get; set; }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModel="clr-namespace:TW.M365.GraphHack.ViewModels"
+             x:Class="TW.M365.GraphHack.Views.PersonView">
+    <Frame HeightRequest="130">
+        <FlexLayout Padding="30">
+            <ActivityIndicator HeightRequest="100" WidthRequest="100" x:Name="UserLoadingIndicator" IsVisible="true" />
+            <Image WidthRequest="50" HeightRequest="50" Aspect="AspectFit" x:Name="UserImage" ></Image>
+            <StackLayout Spacing="5" Padding="5">
+                <Label FontSize="Subtitle" x:Name="UserDisplayNameLabel"></Label>
+                <Label FontSize="Caption" x:Name="UserDescriptionLabel"></Label>
+                <Label FontSize="Caption" x:Name="UserPresenceLabel"></Label>
+            </StackLayout>
+        </FlexLayout>
+    </Frame>
+</ContentView>
