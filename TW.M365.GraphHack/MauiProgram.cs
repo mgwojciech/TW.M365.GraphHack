@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using TW.M365.GraphHack.Lib.Authentication;
+using TW.M365.GraphHack.Lib.GameManager;
+using TW.M365.GraphHack.Lib.Graph;
 using TW.M365.GraphHack.Lib.HttpHandlers;
 using TW.M365.GraphHack.Lib.Services;
 using TW.M365.GraphHack.Views;
@@ -28,7 +30,10 @@ public static class MauiProgram
                 Authority = "https://login.microsoftonline.com/organizations"
             };
 
-            return new AuthenticationService(clientAppInfo, PlatformConfig.Instance.ParentWindow);
+            return new AuthenticationService(clientAppInfo, PlatformConfig.Instance.ParentWindow)
+            {
+                Scopes = AppConstants.Scopes
+            };
 
         });
         builder.Services.AddSingleton<HttpClient>(services =>
@@ -38,6 +43,8 @@ public static class MauiProgram
         });
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<IPeopleService, GraphPeopleService>();
+        builder.Services.AddSingleton<TicTacToeManager>();
+        builder.Services.AddSingleton<ISubscriptionService<TicTacToeState>, GraphListSubscriptionService<TicTacToeState>>();
 
 #if DEBUG
         builder.Logging.AddDebug();

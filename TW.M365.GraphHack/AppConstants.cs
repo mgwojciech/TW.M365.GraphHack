@@ -18,7 +18,8 @@ namespace TW.M365.GraphHack
             "https://graph.microsoft.com/Calendars.Read.Shared" ,
             "https://graph.microsoft.com/Sites.Read.All" ,
             "https://graph.microsoft.com/Team.ReadBasic.All",
-            "https://graph.microsoft.com/People.Read"
+            "https://graph.microsoft.com/People.Read",
+            "https://graph.microsoft.com/Files.ReadWrite.All"
         };
     }
 }

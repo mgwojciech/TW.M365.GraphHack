@@ -63,37 +63,40 @@ namespace TW.M365.GraphHack.Lib.HttpHandlers
         }
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            Guid requestGuid = Guid.NewGuid();
-            lock (_lockObj)
-            {
-                BatchDictionary.TryAdd(requestGuid.ToString(), request);
-                if (BatchDelayTask == null)
-                {
-                    BatchDelayTask = Task.Delay(BatchDelayInMilliseconds).ContinueWith(GetBatchResponse);
-                }
-            }
-            try
-            {
-                await BatchDelayTask;
-                HttpResponseMessage batchResponse = await BatchDelayTask.Result;
-                var batchResult = batchResponseBody.BatchResponses.FirstOrDefault(r => r.Id == requestGuid.ToString());
-                return new HttpResponseMessage((HttpStatusCode)batchResult.Status)
-                {
-                    Content = JsonContent.Create(batchResult.Body)
-                };
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                BatchDictionary.Remove(requestGuid.ToString());
-                if (BatchDictionary.Count == 0)
-                {
-                    BatchDelayTask = null;
-                }
-            }
+
+            await _aadClientAuthenticator.AuthenticateRequest(request);
+            return await base.SendAsync(request, cancellationToken);
+            //Guid requestGuid = Guid.NewGuid();
+            //lock (_lockObj)
+            //{
+            //    BatchDictionary.TryAdd(requestGuid.ToString(), request);
+            //    if (BatchDelayTask == null)
+            //    {
+            //        BatchDelayTask = Task.Delay(BatchDelayInMilliseconds).ContinueWith(GetBatchResponse);
+            //    }
+            //}
+            //try
+            //{
+            //    await BatchDelayTask;
+            //    HttpResponseMessage batchResponse = await BatchDelayTask.Result;
+            //    var batchResult = batchResponseBody.BatchResponses.FirstOrDefault(r => r.Id == requestGuid.ToString());
+            //    return new HttpResponseMessage((HttpStatusCode)batchResult.Status)
+            //    {
+            //        Content = JsonContent.Create(batchResult.Body)
+            //    };
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
+            //finally
+            //{
+            //    BatchDictionary.Remove(requestGuid.ToString());
+            //    if (BatchDictionary.Count == 0)
+            //    {
+            //        BatchDelayTask = null;
+            //    }
+            //}
         }
     }
 }
