@@ -17,8 +17,6 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        builder.Services.AddSingleton<MainPage>();
-
         builder.Services.AddSingleton<IAADClientAuthenticator>(services =>
         {
             ClientAppInfo clientAppInfo = new ClientAppInfo()
@@ -37,6 +35,8 @@ public static class MauiProgram
             IAADClientAuthenticator aadClientAuthenticator = services.GetRequiredService<IAADClientAuthenticator>();
             return new HttpClient(new GraphHttpHandler(aadClientAuthenticator));
         });
+
+        builder.Services.AddSingleton<MainPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();
