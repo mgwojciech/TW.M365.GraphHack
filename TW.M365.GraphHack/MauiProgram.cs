@@ -18,19 +18,18 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
+
         builder.Services.AddSingleton<IAADClientAuthenticator>(services =>
         {
             ClientAppInfo clientAppInfo = new ClientAppInfo()
             {
-                ClientId = "99bf0f5c-99de-43fd-9815-036a1ebcb01c",
-                RedirectUri = "msal99bf0f5c-99de-43fd-9815-036a1ebcb01c://auth",
+                ClientId = AppConstants.ClientId,
+                RedirectUri = PlatformConfig.Instance.RedirectUri,
                 Authority = "https://login.microsoftonline.com/organizations"
             };
-            AuthenticationService authService = new AuthenticationService(clientAppInfo, null);
-#if ANDROID
-		authService = new AuthenticationService(clientAppInfo, Platform.CurrentActivity);
-#endif
-            return authService;
+
+            return new AuthenticationService(clientAppInfo, PlatformConfig.Instance.ParentWindow);
+
         });
         builder.Services.AddSingleton<HttpClient>(services =>
         {
