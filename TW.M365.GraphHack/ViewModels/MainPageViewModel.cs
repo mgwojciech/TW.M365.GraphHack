@@ -1,13 +1,20 @@
 ﻿using System;
+using System.Net.Http.Json;
+using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Graph;
+using TW.M365.GraphHack.Lib.GameManager;
+using TW.M365.GraphHack.Lib.Graph;
 
 namespace TW.M365.GraphHack.ViewModels
 {
     public partial class MainPageViewModel : ObservableObject
     {
-        public MainPageViewModel()
+        TicTacToeManager _gameManager;
+        public MainPageViewModel(TicTacToeManager gameManager)
         {
+            _gameManager = gameManager;
         }
 
         [ObservableProperty]
@@ -38,67 +45,46 @@ namespace TW.M365.GraphHack.ViewModels
         private string play8 = string.Empty;
 
         [RelayCommand]
-        private void Play(string number)
+        public async Task SignInCommand()
         {
-            switch (number)
+        }
+
+        [RelayCommand]
+        private async Task Play(string number)
+        {
+            int tileIndex = int.Parse(number);
+            int tileNumber = tileIndex + 1;
+            if (!_gameManager.OnGoing)
             {
-                case "0":
-                    if (Play0 == "X")
-                        Play0 = "O";
-                    else
-                        Play0 = "X";
-                    break;
-                case "1":
-                    if (Play1 == "X")
-                        Play1 = "O";
-                    else
-                        Play1 = "X";
-                    break;
-                case "2":
-                    if (Play2 == "X")
-                        Play2 = "O";
-                    else
-                        Play2 = "X";
-                    break;
-                case "3":
-                    if (Play3 == "X")
-                        Play3 = "O";
-                    else
-                        Play3 = "X";
-                    break;
-                case "4":
-                    if (Play4 == "X")
-                        Play4 = "O";
-                    else
-                        Play4 = "X";
-                    break;
-                case "5":
-                    if (Play5 == "X")
-                        Play5 = "O";
-                    else
-                        Play5 = "X";
-                    break;
-                case "6":
-                    if (Play6 == "X")
-                        Play6 = "O";
-                    else
-                        Play6 = "X";
-                    break;
-                case "7":
-                    if (Play7 == "X")
-                        Play7 = "O";
-                    else
-                        Play7 = "X";
-                    break;
-                case "8":
-                    if (Play8 == "X")
-                        Play8 = "O";
-                    else
-                        Play8 = "X";
-                    break;
-                default:
-                    return;
+                await _gameManager.StartGame(tileNumber);
+                _gameManager.OnOpponentMoved += _gameManager_OnOpponentMoved;
             }
+            else
+            {
+                if (await _gameManager.MakeAMove(tileNumber))
+                {
+                }
+            }
+            AssignUserTiles(_gameManager.GameState);
+        }
+
+        protected void AssignUserTiles(TicTacToeState state)
+        {
+            foreach(int user1Tile in state.User1Moves)
+            {
+                PropertyInfo propInfo = this.GetType().GetProperty($"Play{user1Tile - 1}");
+                propInfo.SetValue(this, "X");
+            }
+            foreach (int user2Tile in state.User2Moves)
+            {
+                PropertyInfo propInfo = this.GetType().GetProperty($"Play{user2Tile - 1}");
+                propInfo.SetValue(this, "O");
+            }
+        }
+
+        private void _gameManager_OnOpponentMoved(object sender, Lib.Graph.TicTacToeState e)
+        {
+            AssignUserTiles(e);
         }
     }
 }

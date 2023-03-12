@@ -144,6 +144,7 @@
                Text="Sign In"
                BackgroundColor="#3498db"
                TextColor="White"
+               Clicked="Button_Clicked"
                Command="{Binding SignInCommand}"        
                AutomationId="ResetGame"/>
 

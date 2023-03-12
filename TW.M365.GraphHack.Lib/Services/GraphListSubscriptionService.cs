@@ -26,7 +26,7 @@ namespace TW.M365.GraphHack.Lib.Services
         public async Task PushUpdate(T updateBody)
         {
             JsonContent fileContent = JsonContent.Create(updateBody);
-            string createFileUrl = $"https://graph.microsoft.com/v1.0/sites/root/drive/items{CheckingFile.Id}/content";
+            string createFileUrl = $"https://graph.microsoft.com/v1.0/sites/root/drive/items/{CheckingFile.Id}/content";
             using (var response = await GraphClient.PutAsync(createFileUrl, fileContent))
             {
                 CheckingFile = await response.Content.ReadFromJsonAsync<FileResponse>();

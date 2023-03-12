@@ -9,5 +9,10 @@ public partial class MainPage : ContentPage
         BindingContext = viewModel;
         InitializeComponent();
     }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        (BindingContext as MainPageViewModel).SignInCommand();
+    }
 }
 

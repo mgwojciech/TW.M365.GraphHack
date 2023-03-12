@@ -11,7 +11,7 @@ namespace TW.M365.GraphHack.Lib.GameManager
     public class TicTacToeManager
     {
         private ISubscriptionService<TicTacToeState> _subscriptionService;
-        protected TicTacToeState GameState { get; set; }
+        public TicTacToeState GameState { get; set; }
         public event EventHandler<TicTacToeState> OnOpponentMoved;
         public bool OnGoing { get; set; } = false;
         public bool PlayerWon { get; set; } = false;
