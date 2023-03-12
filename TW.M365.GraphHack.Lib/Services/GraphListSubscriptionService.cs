@@ -86,5 +86,15 @@ namespace TW.M365.GraphHack.Lib.Services
         {
             isChecking = false;
         }
+
+        public async Task RegisterToExistingFile(string fileId)
+        {
+            using (var response = await GraphClient.GetAsync($"https://graph.microsoft.com/v1.0/sites/root/drive/items/{fileId}/"))
+            {
+                CheckingFile = await response.Content.ReadFromJsonAsync<FileResponse>();
+            }
+            isChecking = true;
+            StartCheckingTheList();
+        }
     }
 }

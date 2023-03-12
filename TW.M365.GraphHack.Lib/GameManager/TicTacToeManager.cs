@@ -11,15 +11,17 @@ namespace TW.M365.GraphHack.Lib.GameManager
     public class TicTacToeManager
     {
         private ISubscriptionService<TicTacToeState> _subscriptionService;
+        private IFileService _fileService;
         public TicTacToeState GameState { get; set; }
         public event EventHandler<TicTacToeState> OnOpponentMoved;
         public bool OnGoing { get; set; } = false;
         public bool PlayerWon { get; set; } = false;
         public bool CurrentPlayerMove { get; set; } = false;
         protected bool UserIsUser1 { get; set; } = false;
-        public TicTacToeManager(ISubscriptionService<TicTacToeState> subscriptionService)
+        public TicTacToeManager(ISubscriptionService<TicTacToeState> subscriptionService, IFileService fileService)
         {
             _subscriptionService = subscriptionService;
+            _fileService = fileService;
         }
         public async Task StartGame(int tileNumber)
         {
@@ -45,10 +47,15 @@ namespace TW.M365.GraphHack.Lib.GameManager
                 OnOpponentMoved.Invoke(this, GameState);
             }
         }
-
+        public async Task<List<string>> GetAvailableGames()
+        {
+            var files = await _fileService.GetFilesInFolder("TicTacToe");
+            return files.Where(file => file.ETag.Contains(",1")).Select(file => file.Id).ToList();
+        }
         public async Task JoinGame(string gameId)
         {
             UserIsUser1 = false;
+            await _subscriptionService.RegisterToExistingFile(gameId);
         }
         /// <summary>
         /// Returns true if move is valid

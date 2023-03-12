@@ -11,6 +11,7 @@ namespace TW.M365.GraphHack.Lib.Services
         event EventHandler<T> OnRemoteUpdate;
         Task PushUpdate(T updateBody);
         Task RegisterUpdateSubscription(string name, T entity);
+        Task RegisterToExistingFile(string fileId);
         void SuspendListener();
     }
 }

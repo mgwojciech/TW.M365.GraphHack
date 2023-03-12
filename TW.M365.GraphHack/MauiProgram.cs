@@ -48,10 +48,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<MainPageViewModel>();
 
         builder.Services.AddSingleton<IPeopleService, GraphPeopleService>();
-        builder.Services.AddSingleton<TicTacToeManager>(services =>
-        {
-            return new TicTacToeManager(services.GetRequiredService<ISubscriptionService<TicTacToeState>>());
-        });
+        builder.Services.AddSingleton<IFileService, GraphFileService>();
+        builder.Services.AddSingleton<TicTacToeManager>();
         builder.Services.AddSingleton<ISubscriptionService<TicTacToeState>, GraphListSubscriptionService<TicTacToeState>>();
 
 #if DEBUG
