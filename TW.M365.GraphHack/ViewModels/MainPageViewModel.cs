@@ -4,10 +4,10 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace TW.M365.GraphHack.ViewModels
 {
-    public partial class MainPageViewModel: ObservableObject
+    public partial class MainPageViewModel : ObservableObject
     {
         public MainPageViewModel()
-		{
+        {
         }
 
         [ObservableProperty]
