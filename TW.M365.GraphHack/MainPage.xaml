@@ -12,9 +12,6 @@
             x:Name="Container"
             VerticalOptions="Center">
             <GraphViews:PersonView x:Name="UserView" BindingContext="{x:Reference this}" PeopleService="{Binding PeopleService}" />
-            <VerticalStackLayout>
-                <Button Text="Start game" x:Name="StartGameButton" />
-            </VerticalStackLayout>
             <Grid Padding="10"
           ColumnSpacing="10"
           RowSpacing="10">
@@ -141,11 +138,10 @@
                 <Button
                Grid.Row="4"
                Grid.ColumnSpan="3"
-               Text="Sign In"
+               Text="End Game"
                BackgroundColor="#3498db"
                TextColor="White"
-               Clicked="Button_Clicked"
-               Command="{Binding SignInCommand}"        
+               Command="{Binding EndGameCommand}"        
                AutomationId="ResetGame"/>
 
 

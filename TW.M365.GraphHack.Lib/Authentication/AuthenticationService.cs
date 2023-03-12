@@ -26,8 +26,8 @@ namespace TW.M365.GraphHack.Lib.Authentication
             PublicClientApp = PublicClientApplicationBuilder.Create(appInfo.ClientId)
                     .WithRedirectUri(appInfo.RedirectUri)
                     .WithIosKeychainSecurityGroup("com.microsoft.adalcache")
-        .WithAuthority(appInfo.Authority)
-        .Build();
+                    .WithAuthority(appInfo.Authority)
+                    .Build();
         }
 
         public async Task<string> GetToken()
@@ -80,26 +80,32 @@ namespace TW.M365.GraphHack.Lib.Authentication
 
             if (defaultAccount != null)
             {
-                authResult = await PublicClientApp.AcquireTokenInteractive(Scopes)
-                                    .WithAccount(defaultAccount)
-                                    //.WithPrompt(Prompt.ForceLogin)
-                                    .WithUseEmbeddedWebView(true)
-                                    //.WithSystemWebViewOptions(new SystemWebViewOptions())
-                                    .WithParentActivityOrWindow(ParentWindow)
-                                    .ExecuteAsync();
+                authResult = await PublicClientApp.AcquireTokenSilent(Scopes, defaultAccount).ExecuteAsync();
             }
             else
             {
+                SystemWebViewOptions systemWebViewOptions = new SystemWebViewOptions();
+
                 authResult = await PublicClientApp.AcquireTokenInteractive(Scopes)
+                                    //.WithSystemWebViewOptions(systemWebViewOptions)
                                     .WithAccount(defaultAccount)
-                                    //.WithPrompt(Prompt.ForceLogin)
+                                    .WithPrompt(Prompt.SelectAccount)
                                     .WithUseEmbeddedWebView(true)
-                                    //.WithSystemWebViewOptions(new SystemWebViewOptions())
                                     .WithParentActivityOrWindow(ParentWindow)
                                     .ExecuteAsync();
             }
+
             AadDomain = authResult.TenantId;
             return authResult.AccessToken;
+        }
+
+        public async Task SignOutAsync()
+        {
+            var accounts = await PublicClientApp.GetAccountsAsync().ConfigureAwait(false);
+            foreach (var acct in accounts)
+            {
+                await PublicClientApp.RemoveAsync(acct).ConfigureAwait(false);
+            }
         }
 
         public async Task AuthenticateRequest(HttpRequestMessage request)

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="TW.M365.GraphHack.LaunchPage"
+             Title="LaunchPage">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+        EventName="Appearing"
+        Command="{Binding GetUserCommand}" />
+    </ContentPage.Behaviors>
+
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding UserName}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="Lets play, choose game or start new!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Button
+               Text="Create new Game"
+               BackgroundColor="#3498db"
+               TextColor="White"
+               Command="{Binding StartGameCommand}"        
+               AutomationId="CreateNewGame"/>
+
+        <Button
+               Text="Log out"
+               BackgroundColor="#3498db"
+               TextColor="White"
+               Command="{Binding SignOutCommand}"        
+               AutomationId="SignOut"/>
+
+    </VerticalStackLayout>
+</ContentPage>
