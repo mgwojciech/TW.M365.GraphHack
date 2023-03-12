@@ -69,18 +69,37 @@ namespace TW.M365.GraphHack.Lib.Authentication
         }
         public async Task<string> LogInUser()
         {
-            lock (lockObj)
+            IAccount? defaultAccount = null;
+            AuthenticationResult authResult;
+
+            var accounts = await PublicClientApp.GetAccountsAsync();
+            if (accounts.Any())
             {
-                var authResult = PublicClientApp.AcquireTokenInteractive(Scopes)
-                                        //.WithPrompt(Prompt.ForceLogin)
-                                        .WithUseEmbeddedWebView(true)
-                                        //.WithSystemWebViewOptions(new SystemWebViewOptions())
-                                        .WithParentActivityOrWindow(ParentWindow)
-                                        .ExecuteAsync()
-                                        .ConfigureAwait(false).GetAwaiter().GetResult();
-                AadDomain = authResult.TenantId;
-                return authResult.AccessToken;
+                defaultAccount = accounts.FirstOrDefault();
             }
+
+            if (defaultAccount != null)
+            {
+                authResult = await PublicClientApp.AcquireTokenInteractive(Scopes)
+                                    .WithAccount(defaultAccount)
+                                    //.WithPrompt(Prompt.ForceLogin)
+                                    .WithUseEmbeddedWebView(true)
+                                    //.WithSystemWebViewOptions(new SystemWebViewOptions())
+                                    .WithParentActivityOrWindow(ParentWindow)
+                                    .ExecuteAsync();
+            }
+            else
+            {
+                authResult = await PublicClientApp.AcquireTokenInteractive(Scopes)
+                                    .WithAccount(defaultAccount)
+                                    //.WithPrompt(Prompt.ForceLogin)
+                                    .WithUseEmbeddedWebView(true)
+                                    //.WithSystemWebViewOptions(new SystemWebViewOptions())
+                                    .WithParentActivityOrWindow(ParentWindow)
+                                    .ExecuteAsync();
+            }
+            AadDomain = authResult.TenantId;
+            return authResult.AccessToken;
         }
 
         public async Task AuthenticateRequest(HttpRequestMessage request)
