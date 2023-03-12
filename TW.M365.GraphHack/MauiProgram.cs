@@ -5,6 +5,7 @@ using TW.M365.GraphHack.Lib.GameManager;
 using TW.M365.GraphHack.Lib.Graph;
 using TW.M365.GraphHack.Lib.HttpHandlers;
 using TW.M365.GraphHack.Lib.Services;
+using TW.M365.GraphHack.ViewModels;
 using TW.M365.GraphHack.Views;
 
 namespace TW.M365.GraphHack;
@@ -42,7 +43,10 @@ public static class MauiProgram
             IAADClientAuthenticator aadClientAuthenticator = services.GetRequiredService<IAADClientAuthenticator>();
             return new HttpClient(new GraphHttpHandler(aadClientAuthenticator));
         });
+
         builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<MainPageViewModel>();
+
         builder.Services.AddSingleton<IPeopleService, GraphPeopleService>();
         builder.Services.AddSingleton<TicTacToeManager>(services =>
         {
