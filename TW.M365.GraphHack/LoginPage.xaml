@@ -18,7 +18,7 @@
                 FontSize="24"
                 HorizontalOptions="Center" />
             <Frame 
-               BorderColor="#fcba03"
+               BorderColor="{AppThemeBinding Light=Black, Dark=White}"
                HorizontalOptions="Center"
                WidthRequest="300"
                HeightRequest="{OnPlatform iOS='300', Android='300'}"
@@ -27,16 +27,11 @@
                Padding="0" IsClippedToBounds="True">
                 <Image Source="graphgiraffe.png" Aspect="AspectFill"/>
             </Frame>
-            <Label
-                TextColor="{AppThemeBinding Light=Black, Dark=White}"
-                Text="Please sign in with your Microsoft account"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="16"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                />
+
             <Button
                Text="Sign In"
+               BorderWidth="0.5"
+               BorderColor="{AppThemeBinding Light=Black, Dark=White}"
                TextColor="Black"
                FontAttributes="Bold"
                BackgroundColor="#fcba03"
