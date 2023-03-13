@@ -80,8 +80,10 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\graphgiraffe.png" />
+	  <None Remove="Resources\Images\hacktogether.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\graphgiraffe.png" />
+	  <BundleResource Include="Resources\Images\hacktogether.png" />
 	</ItemGroup>
 </Project>

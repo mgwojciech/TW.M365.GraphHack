@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="TW.M365.GraphHack.LaunchPage"
+             Shell.NavBarIsVisible="false"
              Title="LaunchPage">
 
     <ContentPage.Behaviors>
@@ -11,29 +12,72 @@
         Command="{Binding GetUserCommand}" />
     </ContentPage.Behaviors>
 
-    <VerticalStackLayout>
-        <Label 
-            Text="{Binding UserName}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="Lets play, choose game or start new!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <Grid RowDefinitions="*,60" ColumnDefinitions="*" Padding="20,0">
 
-        <Button
-               Text="Create new Game"
-               BackgroundColor="#3498db"
-               TextColor="White"
-               Command="{Binding StartGameCommand}"        
-               AutomationId="CreateNewGame"/>
+        <VerticalStackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="Fill">
+            <!-- middle section here  -->
 
-        <Button
-               Text="Log out"
-               BackgroundColor="#3498db"
-               TextColor="White"
-               Command="{Binding SignOutCommand}"        
-               AutomationId="SignOut"/>
+            <!-- Main layout-->
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" >
+                <Label
+                Text="Graph TicTacToe"
+                TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="24"
+                HorizontalOptions="Center" />
+                <!--Header image -->
+                <Frame Grid.Row="0" BorderColor="{AppThemeBinding Light=Black, Dark=White}" VerticalOptions="Start" HeightRequest="160" HasShadow="False" CornerRadius="20" Margin="0,45,0,20" Padding="0" IsClippedToBounds="True">
+                    <Image Source="hacktogether.png" Aspect="AspectFill"/>
+                </Frame>
+                <!-- Profile -->
+                <Frame Grid.Row="1" Margin="200,-80,0,0" BorderColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalOptions="Center" WidthRequest="110" HeightRequest="{OnPlatform iOS='110', Android='20'}" HasShadow="False" CornerRadius="55" Padding="0" IsClippedToBounds="True">
+                    <!-- App m365 profile image -->
+                    <Image Source="graphgiraffe.png" Aspect="AspectFill"/>
+                </Frame>
+                <!-- Profile name & general description-->
+                <Label Grid.Row="2" Margin="10,-40,0,0" Text="{Binding UserName}" FontAttributes="Bold" TextColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalTextAlignment="Start"  FontSize="22"/>
 
-    </VerticalStackLayout>
+                <!-- Homework-->
+                <Label Grid.Row="3" Text="Join a game below" FontAttributes="Bold" TextColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalTextAlignment="Start" Margin="0,30,0,10" FontSize="20"/>
+                <CollectionView Grid.Row="4" HorizontalScrollBarVisibility="Never"
+                            ItemsSource="{Binding games}"
+                            HeightRequest="140"
+                            ItemsLayout="HorizontalList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout WidthRequest="{OnPlatform iOS='135', Android='160'}" Padding="0,0,15,0">
+                                <Frame CornerRadius="13" HorizontalOptions="Start" BorderColor="#c6c1ea" HasShadow="False">
+                                    <Grid RowDefinitions="*,Auto">
+                                        <Image Source="folder" HorizontalOptions="Center" HeightRequest="40" WidthRequest="40" />
+                                        <Label Grid.Row="1" HorizontalOptions="Center" Text="{Binding FileName}" FontSize="11" TextColor="#c6c1ea"/>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <StackLayout HorizontalOptions="CenterAndExpand"
+                                         VerticalOptions="CenterAndExpand">
+                                <Label Text="No open games in your tenant"
+                                       Margin="10,25,10,10"
+                                       FontAttributes="Bold"
+                                       FontSize="18"
+                                       HorizontalOptions="Fill"
+                                       HorizontalTextAlignment="Start" />
+                            </StackLayout>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+                <Label Grid.Row="5" Text="..or create new game." FontAttributes="Bold" TextColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalTextAlignment="Start" Margin="0,30,0,10" FontSize="20"/>
+                <Button Grid.Row="6" Command="{Binding StartGameCommand}" Text="New Game" CornerRadius="18" TextColor="{AppThemeBinding Light=Black, Dark=White}" FontAttributes="Bold" BackgroundColor="#fcba03" HeightRequest="50" BorderWidth="1"/>
+            </Grid>
+
+        </VerticalStackLayout>
+
+        <!-- bottom section here -->
+
+        <!-- Logout button -->
+        <Button Grid.Row="1" Grid.Column="0" Command="{Binding SignOutCommand}" Text="Log out" BackgroundColor="White" ImageSource="medal" WidthRequest="130" CornerRadius="18" FontAttributes="Bold" TextColor="#383b67" BorderColor="Silver" Margin="0,0,10,0" HeightRequest="50" BorderWidth="1"/>
+    </Grid>
 </ContentPage>

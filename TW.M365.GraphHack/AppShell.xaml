@@ -18,7 +18,7 @@
         ContentTemplate="{DataTemplate local:LaunchPage}"
         Route="launch"/>
 
-    <!--Launch Page-->
+    <!--Game Page-->
     <ShellContent 
         Title="Main" 
         ContentTemplate="{DataTemplate local:MainPage}"
