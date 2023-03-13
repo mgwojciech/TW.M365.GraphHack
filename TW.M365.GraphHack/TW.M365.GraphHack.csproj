@@ -78,4 +78,10 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="Resources\Images\graphgiraffe.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\graphgiraffe.png" />
+	</ItemGroup>
 </Project>
