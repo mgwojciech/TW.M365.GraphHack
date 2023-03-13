@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="TW.M365.GraphHack.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -6,9 +6,22 @@
     xmlns:local="clr-namespace:TW.M365.GraphHack"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
+    <!--Login Page-->
+    <ShellContent 
+        Title="Login" 
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="login"/>
+
+    <!--Launch Page-->
+    <ShellContent 
+        Title="Launch" 
+        ContentTemplate="{DataTemplate local:LaunchPage}"
+        Route="launch"/>
+
+    <!--Launch Page-->
+    <ShellContent 
+        Title="Main" 
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="main"/>
 
 </Shell>

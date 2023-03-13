@@ -11,5 +11,7 @@ namespace TW.M365.GraphHack.Lib.Authentication
     {
         string AadDomain { get; set; }
         Task AuthenticateRequest(HttpRequestMessage request);
+        Task<string> LogInUser();
+        Task SignOutAsync();
     }
 }

@@ -2,12 +2,11 @@
 
 namespace TW.M365.GraphHack;
 
-public partial class MainPage : ContentPage
+public partial class LaunchPage : ContentPage
 {
-    public MainPage(MainPageViewModel viewModel)
-    {
+    public LaunchPage(LaunchPageViewModel viewModel)
+	{
         BindingContext = viewModel;
         InitializeComponent();
-    }
+	}
 }
-

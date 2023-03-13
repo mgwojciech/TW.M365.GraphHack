@@ -12,6 +12,7 @@ namespace TW.M365.GraphHack.Lib.Graph.Model
         public string Id { get; set; }
         public string Name { get; set; }
         public string ETag { get; set; }
+        public string Title { get; set; }
         [JsonPropertyName("@microsoft.graph.downloadUrl")]
         public string DownloadUrl { get; set; }
         public CreatedBy CreatedBy { get; set; }

@@ -62,6 +62,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Graph" Version="4.54.0" />
 		<PackageReference Include="Microsoft.Identity.Client" Version="4.50.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -77,4 +78,10 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="Resources\Images\graphgiraffe.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\graphgiraffe.png" />
+	</ItemGroup>
 </Project>

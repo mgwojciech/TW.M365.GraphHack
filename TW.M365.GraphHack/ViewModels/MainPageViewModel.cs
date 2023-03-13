@@ -45,8 +45,9 @@ namespace TW.M365.GraphHack.ViewModels
         private string play8 = string.Empty;
 
         [RelayCommand]
-        public async Task SignInCommand()
+        public async Task EndGame()
         {
+            await Shell.Current.GoToAsync("///launch");
         }
 
         [RelayCommand]
