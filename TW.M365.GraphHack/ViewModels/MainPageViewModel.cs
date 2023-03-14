@@ -27,6 +27,7 @@ namespace TW.M365.GraphHack.ViewModels
             if (_gameManager.OnGoing)
             {
                 AssignUserTiles(_gameManager.GameState);
+                _gameManager.OnOpponentMoved += _gameManager_OnOpponentMoved;
             }
         }
 
