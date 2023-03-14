@@ -15,6 +15,19 @@ namespace TW.M365.GraphHack.ViewModels
         public MainPageViewModel(TicTacToeManager gameManager)
         {
             _gameManager = gameManager;
+            if (_gameManager.OnGoing)
+            {
+                AssignUserTiles(_gameManager.GameState);
+            }
+        }
+
+        [RelayCommand]
+        public async Task LoadGame()
+        {
+            if (_gameManager.OnGoing)
+            {
+                AssignUserTiles(_gameManager.GameState);
+            }
         }
 
         [ObservableProperty]

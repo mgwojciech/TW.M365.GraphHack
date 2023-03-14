@@ -55,7 +55,12 @@ namespace TW.M365.GraphHack.Lib.GameManager
         public async Task JoinGame(string gameId)
         {
             UserIsUser1 = false;
+            CurrentPlayerMove = true;
+            OnGoing = true;
             await _subscriptionService.RegisterToExistingFile(gameId);
+            GameState = await _fileService.GetFileContent<TicTacToeState>(gameId);
+            _subscriptionService.OnRemoteUpdate += _subscriptionService_OnRemoteUpdate;
+
         }
         /// <summary>
         /// Returns true if move is valid

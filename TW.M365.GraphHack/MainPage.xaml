@@ -3,7 +3,13 @@
              x:Name="this"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:GraphViews="clr-namespace:TW.M365.GraphHack.Views"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="TW.M365.GraphHack.MainPage">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+        EventName="Appearing"
+        Command="{Binding LoadGameCommand}" />
+    </ContentPage.Behaviors>
 
     <ScrollView>
         <VerticalStackLayout
