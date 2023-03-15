@@ -83,7 +83,7 @@ namespace TW.M365.GraphHack.ViewModels
         [RelayCommand]
         public async Task SignOut()
         {
-            //await Auth.SignOutAsync();
+            await Auth.SignOutAsync();
             await Shell.Current.GoToAsync("///login");
         }
     }

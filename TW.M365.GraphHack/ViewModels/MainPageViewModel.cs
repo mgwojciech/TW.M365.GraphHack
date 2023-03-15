@@ -71,6 +71,7 @@ namespace TW.M365.GraphHack.ViewModels
             int tileNumber = tileIndex + 1;
             if (!_gameManager.OnGoing)
             {
+                updateTile(tileNumber, "X");
                 await _gameManager.StartGame(tileNumber);
                 _gameManager.OnOpponentMoved += _gameManager_OnOpponentMoved;
             }
@@ -87,14 +88,19 @@ namespace TW.M365.GraphHack.ViewModels
         {
             foreach(int user1Tile in state.User1Moves)
             {
-                PropertyInfo propInfo = this.GetType().GetProperty($"Play{user1Tile - 1}");
-                propInfo.SetValue(this, "X");
+                updateTile(user1Tile, "X");
             }
             foreach (int user2Tile in state.User2Moves)
             {
-                PropertyInfo propInfo = this.GetType().GetProperty($"Play{user2Tile - 1}");
-                propInfo.SetValue(this, "O");
+                updateTile(user2Tile, "O");
+
             }
+        }
+
+        private void updateTile(int user1Tile, string mark)
+        {
+            PropertyInfo propInfo = this.GetType().GetProperty($"Play{user1Tile - 1}");
+            propInfo.SetValue(this, mark);
         }
 
         private void _gameManager_OnOpponentMoved(object sender, Lib.Graph.TicTacToeState e)

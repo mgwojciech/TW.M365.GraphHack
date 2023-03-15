@@ -1,23 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             x:Name="this"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:GraphViews="clr-namespace:TW.M365.GraphHack.Views"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="TW.M365.GraphHack.MainPage">
+             x:Class="TW.M365.GraphHack.MainPage"
+             Shell.NavBarIsVisible="false">
+
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
         EventName="Appearing"
         Command="{Binding LoadGameCommand}" />
     </ContentPage.Behaviors>
 
-    <ScrollView>
+    <VerticalStackLayout
+            Spacing="50"
+            Padding="30,0"
+            VerticalOptions="CenterAndExpand">
+
+        <Label Text="Graph TicTacToe"
+                TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="24"
+                HorizontalOptions="Center" />
+
+        <VerticalStackLayout WidthRequest="110" >
+            <Frame BorderColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalOptions="Center" WidthRequest="110" HeightRequest="{OnPlatform iOS='110', Android='110'}" HasShadow="False" CornerRadius="55" Padding="0" IsClippedToBounds="True">
+                <!-- App m365 profile image -->
+                <Image Source="graphgiraffe.png" Aspect="AspectFill"/>
+            </Frame>
+        </VerticalStackLayout>
+
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             x:Name="Container"
             VerticalOptions="Center">
-            <GraphViews:PersonView x:Name="UserView" BindingContext="{x:Reference this}" PeopleService="{Binding PeopleService}" />
+
             <Grid Padding="10"
           ColumnSpacing="10"
           RowSpacing="10">
@@ -45,7 +62,6 @@
                 Command="{Binding PlayCommand}"
                 CommandParameter="0"
                 AutomationId="Play0"/>
-
 
                 <Button Grid.Row="0"
                 Grid.Column="1"
@@ -141,18 +157,21 @@
                Text="{Binding CurrentStatus}"
                AutomationId="CurrentStatus"/>
 
-                <Button
-               Grid.Row="4"
-               Grid.ColumnSpan="3"
-               Text="End Game"
-               BackgroundColor="#3498db"
-               TextColor="White"
-               Command="{Binding EndGameCommand}"        
-               AutomationId="ResetGame"/>
-
 
             </Grid>
         </VerticalStackLayout>
-    </ScrollView>
+
+
+        <Button
+               Text="Quit game"
+               BorderWidth="0.5"
+               BorderColor="{AppThemeBinding Light=Black, Dark=White}"
+               TextColor="Black"
+               FontAttributes="Bold"
+               BackgroundColor="#fcba03"
+               Command="{Binding EndGameCommand}"        
+               AutomationId="SignIn"/>
+
+    </VerticalStackLayout>
 
 </ContentPage>
