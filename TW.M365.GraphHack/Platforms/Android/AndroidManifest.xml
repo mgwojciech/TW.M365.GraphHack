@@ -6,7 +6,7 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="msal99bf0f5c-99de-43fd-9815-036a1ebcb01c" android:host="auth" />
+				<data android:scheme="msal1f3e3046-7be4-43ac-b80e-d414336bdc76" android:host="auth" />
 			</intent-filter>
 		</activity>
 		<activity android:name="TW.M365.GraphHack.MsalActivity"  android:exported="true">
@@ -14,10 +14,10 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="msal99bf0f5c-99de-43fd-9815-036a1ebcb01c" android:host="auth" />
+				<data android:scheme="msal1f3e3046-7be4-43ac-b80e-d414336bdc76" android:host="auth" />
 			</intent-filter>
 		</activity>
-		<meta-data android:name="com.microsoft.identity.client.client_id" android:value="99bf0f5c-99de-43fd-9815-036a1ebcb01c" />
+		<meta-data android:name="com.microsoft.identity.client.client_id" android:value="1f3e3046-7be4-43ac-b80e-d414336bdc76" />
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />

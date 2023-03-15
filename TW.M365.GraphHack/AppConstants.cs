@@ -4,7 +4,7 @@ namespace TW.M365.GraphHack
     internal static class AppConstants
     {
         // ClientID of the application in (ms sample testing)
-        internal const string ClientId = "99bf0f5c-99de-43fd-9815-036a1ebcb01c"; // TODO - Replace with your client Id. And also replace in the AndroidManifest.xml
+        internal const string ClientId = "1f3e3046-7be4-43ac-b80e-d414336bdc76"; // TODO - Replace with your client Id. And also replace in the AndroidManifest.xml
 
         // TenantID of the organization (ms sample testing)
         internal const string TenantId = "common"; // TODO - Replace with your TenantID. And also replace in the AndroidManifest.xml
