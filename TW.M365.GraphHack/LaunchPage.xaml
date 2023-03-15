@@ -19,6 +19,8 @@
 
     </ContentPage.Behaviors>
 
+    <ScrollView VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
+
     <Grid RowDefinitions="*,60" ColumnDefinitions="*" Padding="20,0">
 
         <RefreshView IsRefreshing="{Binding IsRefreshing}"
@@ -97,4 +99,6 @@
         <!-- Logout button -->
         <Button Grid.Row="1" Grid.Column="0" Command="{Binding SignOutCommand}" Text="Log out" BackgroundColor="White" ImageSource="medal" WidthRequest="130" CornerRadius="18" FontAttributes="Bold" TextColor="#383b67" BorderColor="Silver" Margin="0,0,10,0" HeightRequest="50" BorderWidth="1"/>
     </Grid>
+
+    </ScrollView>
 </ContentPage>
