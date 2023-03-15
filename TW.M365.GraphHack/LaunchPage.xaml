@@ -8,75 +8,90 @@
              Title="LaunchPage">
 
     <ContentPage.Behaviors>
+
         <toolkit:EventToCommandBehavior
         EventName="Appearing"
         Command="{Binding GetUserCommand}" />
+
+        <toolkit:EventToCommandBehavior
+        EventName="Appearing"
+        Command="{Binding LoadGamesCommand}" />
+
     </ContentPage.Behaviors>
 
     <Grid RowDefinitions="*,60" ColumnDefinitions="*" Padding="20,0">
 
-        <VerticalStackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="Fill">
-            <!-- middle section here  -->
+        <RefreshView IsRefreshing="{Binding IsRefreshing}"
+             Command="{Binding RefreshGamesCommand}">
+            <ScrollView VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">
 
-            <!-- Main layout-->
-            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" >
-                <Label
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="Fill">
+                    <!-- middle section here  -->
+
+                    <!-- Main layout-->
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" >
+                        <Label
                 Text="Graph TicTacToe"
                 TextColor="{AppThemeBinding Light=Black, Dark=White}"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="24"
                 HorizontalOptions="Center" />
-                <!--Header image -->
-                <Frame Grid.Row="0" BorderColor="{AppThemeBinding Light=Black, Dark=White}" VerticalOptions="Start" HeightRequest="160" HasShadow="False" CornerRadius="20" Margin="0,45,0,20" Padding="0" IsClippedToBounds="True">
-                    <Image Source="hacktogether.png" Aspect="AspectFill"/>
-                </Frame>
-                <!-- Profile -->
-                <Frame Grid.Row="1" Margin="200,-80,0,0" BorderColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalOptions="Center" WidthRequest="110" HeightRequest="{OnPlatform iOS='110', Android='20'}" HasShadow="False" CornerRadius="55" Padding="0" IsClippedToBounds="True">
-                    <!-- App m365 profile image -->
-                    <Image Source="graphgiraffe.png" Aspect="AspectFill"/>
-                </Frame>
-                <!-- Profile name & general description-->
-                <Label Grid.Row="2" Margin="10,-40,0,0" Text="{Binding UserName}" FontAttributes="Bold" TextColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalTextAlignment="Start"  FontSize="22"/>
+                        <!--Header image -->
+                        <Frame Grid.Row="0" BorderColor="{AppThemeBinding Light=Black, Dark=White}" VerticalOptions="Start" HeightRequest="160" HasShadow="False" CornerRadius="20" Margin="0,45,0,20" Padding="{OnPlatform iOS='0', Android='8'}" IsClippedToBounds="True">
+                            <Image Source="hacktogether.png" Aspect="AspectFill"/>
+                        </Frame>
+                        <!-- Profile -->
+                        <VerticalStackLayout Grid.Row="1" Margin="200,-80,0,0" WidthRequest="110" >
+                            <Frame BorderColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalOptions="Center" WidthRequest="110" HeightRequest="{OnPlatform iOS='110', Android='110'}" HasShadow="False" CornerRadius="55" Padding="0" IsClippedToBounds="True">
+                                <!-- App m365 profile image -->
+                                <Image Source="graphgiraffe.png" Aspect="AspectFill"/>
+                            </Frame>
+                        </VerticalStackLayout>
+                        <!-- Profile name & general description-->
+                        <Label Grid.Row="2" Margin="10,-40,0,0" Text="{Binding UserName}" FontAttributes="Bold" TextColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalTextAlignment="Start"  FontSize="22"/>
 
-                <!-- Homework-->
-                <Label Grid.Row="3" Text="Join a game below" FontAttributes="Bold" TextColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalTextAlignment="Start" Margin="0,30,0,10" FontSize="20"/>
-                <CollectionView Grid.Row="4" HorizontalScrollBarVisibility="Never"
+                        <!-- Homework-->
+                        <Label Grid.Row="3" Text="Join a game below" FontAttributes="Bold" TextColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalTextAlignment="Start" Margin="0,30,0,10" FontSize="20"/>
+                        <CollectionView Grid.Row="4" HorizontalScrollBarVisibility="Never"
                             ItemsSource="{Binding games}"
-                            HeightRequest="140"
+                            HeightRequest="160"
                             ItemsLayout="HorizontalList">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout WidthRequest="{OnPlatform iOS='135', Android='160'}" Padding="0,0,15,0">
-                                <Frame  CornerRadius="13" HorizontalOptions="Start" BorderColor="#c6c1ea" HasShadow="False">
-                                    <Grid RowDefinitions="*,Auto">
-                                        <Image Source="folder" HorizontalOptions="Center" HeightRequest="40" WidthRequest="40" />
-                                        <Label Grid.Row="1" HorizontalOptions="Center" Text="{Binding FileName}" FontSize="11" TextColor="#c6c1ea"/>
-                                        <Button Text="Join" Command="{Binding JoinGameCommand, Source={RelativeSource AncestorType={x:Type  ViewModels:LaunchPageViewModel}}}" CommandParameter="{Binding FileName}" />
-                                    </Grid>
-                                </Frame>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
-                        <ContentView>
-                            <StackLayout HorizontalOptions="CenterAndExpand"
-                                         VerticalOptions="CenterAndExpand">
-                                <Label Text="No open games in your tenant"
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout WidthRequest="{OnPlatform iOS='135', Android='160'}" Padding="0,0,15,0">
+                                        <Frame CornerRadius="13" HorizontalOptions="Start" BorderColor="{AppThemeBinding Light=Black, Dark=White}" HasShadow="False">
+                                            <Grid RowDefinitions="*,Auto">
+                                                <Button BorderWidth="1" BorderColor="{AppThemeBinding Light=Black, Dark=White}" TextColor="Black" FontAttributes="Bold" BackgroundColor="#fcba03" Grid.Row="0" Text="Join" Command="{Binding JoinGameCommand, Source={RelativeSource AncestorType={x:Type  ViewModels:LaunchPageViewModel}}}" CommandParameter="{Binding FileName}" />
+                                                <Label  Margin="0,8,0,0" Grid.Row="1" HorizontalOptions="Center" Text="{Binding FileName}" FontSize="11" TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                                            </Grid>
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            <CollectionView.EmptyView>
+                                <ContentView>
+                                    <StackLayout HorizontalOptions="Center"
+                                         VerticalOptions="Start">
+
+                                        <Label Text="No open games, &#x0a; pull to refresh"
+                                               TextColor="{AppThemeBinding Light=Black, Dark=White}"
                                        Margin="10,25,10,10"
-                                       FontAttributes="Bold"
-                                       FontSize="18"
+                                       FontAttributes="Italic"
+                                       FontSize="16"
                                        HorizontalOptions="Fill"
-                                       HorizontalTextAlignment="Start" />
-                            </StackLayout>
-                        </ContentView>
-                    </CollectionView.EmptyView>
-                </CollectionView>
-                <Label Grid.Row="5" Text="..or create new game." FontAttributes="Bold" TextColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalTextAlignment="Start" Margin="0,30,0,10" FontSize="20"/>
-                <Button Grid.Row="6" Command="{Binding StartGameCommand}" Text="New Game" CornerRadius="18" TextColor="{AppThemeBinding Light=Black, Dark=White}" FontAttributes="Bold" BackgroundColor="#fcba03" HeightRequest="50" BorderWidth="1"/>
-            </Grid>
+                                       VerticalOptions="Start"
+                                       HorizontalTextAlignment="Center" />
+                                    </StackLayout>
+                                </ContentView>
+                            </CollectionView.EmptyView>
+                        </CollectionView>
+                        <Label Grid.Row="5" Text="..or create new game." FontAttributes="Bold" TextColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalTextAlignment="Start" Margin="0,30,0,10" FontSize="20"/>
+                        <Button Grid.Row="6" Command="{Binding StartGameCommand}" Text="New Game" CornerRadius="18" TextColor="Black" FontAttributes="Bold" BackgroundColor="#fcba03" HeightRequest="50" BorderWidth="1"/>
+                    </Grid>
 
-        </VerticalStackLayout>
-
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
         <!-- bottom section here -->
 
         <!-- Logout button -->

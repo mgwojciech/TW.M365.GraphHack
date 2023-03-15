@@ -3,21 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TW.M365.GraphHack.LoginPage"
              Title="LoginPage"
-             Shell.NavBarIsVisible="false"
-             >
-    <ScrollView>
-        <VerticalStackLayout
+             Shell.NavBarIsVisible="false">
+
+    <VerticalStackLayout
             Spacing="50"
             Padding="30,0"
             VerticalOptions="CenterAndExpand">
 
-            <Label
+        <Label
                 Text="Graph TicTacToe"
                 TextColor="{AppThemeBinding Light=Black, Dark=White}"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="24"
                 HorizontalOptions="Center" />
-            <Frame 
+
+        <VerticalStackLayout WidthRequest="300">
+
+            <Frame
                BorderColor="{AppThemeBinding Light=Black, Dark=White}"
                HorizontalOptions="Center"
                WidthRequest="300"
@@ -28,7 +30,9 @@
                 <Image Source="graphgiraffe.png" Aspect="AspectFill"/>
             </Frame>
 
-            <Button
+        </VerticalStackLayout>
+
+        <Button
                Text="Sign In"
                BorderWidth="0.5"
                BorderColor="{AppThemeBinding Light=Black, Dark=White}"
@@ -38,7 +42,6 @@
                Command="{Binding SignInCommand}"        
                AutomationId="SignIn"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+    </VerticalStackLayout>
 
 </ContentPage>

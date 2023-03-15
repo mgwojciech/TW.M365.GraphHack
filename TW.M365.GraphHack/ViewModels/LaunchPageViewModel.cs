@@ -25,22 +25,21 @@ namespace TW.M365.GraphHack.ViewModels
         [ObservableProperty]
         public string userName = string.Empty;
 
+        [ObservableProperty]
+        public bool isRefreshing = false;
+
+
         public LaunchPageViewModel(IAADClientAuthenticator auth, IPeopleService peopleService, TicTacToeManager gameManager)
         {
             Auth = auth;
             PeopleService = peopleService;
             GameManager = gameManager;
 
-            games = new ObservableCollection<Game>()
-            {
-                new Game { FileName = "gameone.json" },
-                new Game { FileName = "gametwo.json" },
-                new Game { FileName = "gamethree.json" }
-            };
-            LoadGames();
+            games = new ObservableCollection<Game>();
         }
 
-        protected async Task LoadGames()
+        [RelayCommand]
+        public async Task LoadGames()
         {
             var gameIds = await GameManager.GetAvailableGames();
             games.Clear();
@@ -51,6 +50,14 @@ namespace TW.M365.GraphHack.ViewModels
                     FileName = gameId
                 });
             }
+        }
+
+        [RelayCommand]
+        public async Task RefreshGames()
+        {
+            IsRefreshing = true;
+            await LoadGames();
+            IsRefreshing = false;
         }
 
         [RelayCommand]
