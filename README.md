@@ -1,5 +1,7 @@
 Hack Together: Microsoft Graph and .NET
 
+[![Hack Together: Microsoft Graph and .NET](https://img.shields.io/badge/Microsoft%20-Hack--Together-orange?style=for-the-badge&logo=microsoft)](https://github.com/microsoft/hack-together)
+
 ![hacktogether](https://user-images.githubusercontent.com/2223355/225382423-54fadcbe-d85c-4892-8c36-4fdef32b48e3.png)
 
 
