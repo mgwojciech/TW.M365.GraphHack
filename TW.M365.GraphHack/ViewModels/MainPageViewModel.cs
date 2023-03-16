@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Net.Http.Json;
 using System.Reflection;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -32,6 +33,18 @@ namespace TW.M365.GraphHack.ViewModels
         }
 
         [ObservableProperty]
+        private bool tie = false;
+
+        [ObservableProperty]
+        private bool youWon = false;
+
+        [ObservableProperty]
+        private bool gameEnd = false;
+
+        [ObservableProperty]
+        private bool isMyturn = true;
+
+        [ObservableProperty]
         private string play0 = string.Empty;
 
         [ObservableProperty]
@@ -58,6 +71,25 @@ namespace TW.M365.GraphHack.ViewModels
         [ObservableProperty]
         private string play8 = string.Empty;
 
+        [ObservableProperty]
+        private bool win0 = false;
+        [ObservableProperty]
+        private bool win1 = false;
+        [ObservableProperty]
+        private bool win2 = false;
+        [ObservableProperty]
+        private bool win3 = false;
+        [ObservableProperty]
+        private bool win4 = false;
+        [ObservableProperty]
+        private bool win5 = false;
+        [ObservableProperty]
+        private bool win6 = false;
+        [ObservableProperty]
+        private bool win7 = false;
+        [ObservableProperty]
+        private bool win8 = false;
+
         [RelayCommand]
         public async Task EndGame()
         {
@@ -67,21 +99,92 @@ namespace TW.M365.GraphHack.ViewModels
         [RelayCommand]
         private async Task Play(string number)
         {
-            int tileIndex = int.Parse(number);
-            int tileNumber = tileIndex + 1;
-            if (!_gameManager.OnGoing)
+            if (IsMyturn && !GameEnd)
             {
-                updateTile(tileNumber, "X");
-                await _gameManager.StartGame(tileNumber);
-                _gameManager.OnOpponentMoved += _gameManager_OnOpponentMoved;
-            }
-            else
-            {
-                if (await _gameManager.MakeAMove(tileNumber))
+                int tileIndex = int.Parse(number);
+                int tileNumber = tileIndex + 1;
+                if (!_gameManager.OnGoing)
                 {
+                    IsMyturn = false;
+                    updateTile(tileNumber, "X");
+                    await _gameManager.StartGame(tileNumber);
+                    _gameManager.OnOpponentMoved += _gameManager_OnOpponentMoved;
+                }
+                else
+                {
+                    if (_gameManager.MakeAMove(tileNumber))
+                    {
+                        IsWinner();
+                        IsMyturn = false;
+                        AssignUserTiles(_gameManager.GameState);
+
+                        await _gameManager.PushUpdate();
+                    }
                 }
             }
-            AssignUserTiles(_gameManager.GameState);
+        }
+
+        private void IsWinner()
+        {
+            var winningLine = GameHelper.IsWinningMoveSet(_gameManager.GameState.User1Moves);
+            var winningLine2 = GameHelper.IsWinningMoveSet(_gameManager.GameState.User2Moves);
+
+            if (winningLine.Length > 0 || winningLine2.Length > 0)
+            {
+                GameEnd = true;
+                if (GameEnd && IsMyturn) {
+                    YouWon = true;
+                }
+                foreach (var user1Tile in winningLine.Split(','))
+                {
+                    markWinningRow(user1Tile);
+                }
+                foreach (var user1Tile in winningLine2.Split(','))
+                {
+                    markWinningRow(user1Tile);
+                }
+            }
+            var total = _gameManager.GameState.User1Moves.ToArray().Length + _gameManager.GameState.User2Moves.ToArray().Length;
+            if (!GameEnd && total == 9) {
+                Tie = true;
+                GameEnd = true;
+            }
+        }
+
+        private void markWinningRow(string user1Tile)
+        {
+            switch (user1Tile)
+            {
+                case "1":
+                    Win0 = true;
+                    break;
+                case "2":
+                    Win1 = true;
+                    break;
+                case "3":
+                    Win2 = true;
+                    break;
+                case "4":
+                    Win3 = true;
+                    break;
+                case "5":
+                    Win4 = true;
+                    break;
+                case "6":
+                    Win5 = true;
+                    break;
+                case "7":
+                    Win6 = true;
+                    break;
+                case "8":
+                    Win7 = true;
+                    break;
+                case "9":
+                    Win8 = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         protected void AssignUserTiles(TicTacToeState state)
@@ -106,6 +209,8 @@ namespace TW.M365.GraphHack.ViewModels
         private void _gameManager_OnOpponentMoved(object sender, Lib.Graph.TicTacToeState e)
         {
             AssignUserTiles(e);
+            IsWinner();
+            IsMyturn = true;
         }
     }
 }

@@ -67,7 +67,7 @@ namespace TW.M365.GraphHack.Lib.GameManager
         /// </summary>
         /// <param name="tileNumber"></param>
         /// <returns></returns>
-        public async Task<bool> MakeAMove(int tileNumber)
+        public bool MakeAMove(int tileNumber)
         {
             if (GameState.User1Moves.Contains(tileNumber))
             {
@@ -85,8 +85,16 @@ namespace TW.M365.GraphHack.Lib.GameManager
             {
                 GameState.User2Moves.Add(tileNumber);
             }
-            await _subscriptionService.PushUpdate(GameState);
             return true;
+        }
+
+        /// <summary>
+        /// Updates backend
+        /// </summary>
+        /// <returns></returns>
+        public async Task PushUpdate()
+        {
+            await _subscriptionService.PushUpdate(GameState);
         }
     }
 }

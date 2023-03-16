@@ -57,106 +57,191 @@
                 Grid.Column="0"
                 BackgroundColor="#A9A9A9" 
                 TextColor="White"
+                CornerRadius="0"
                 Text="{Binding Play0}"
                 FontSize="40"
                 Command="{Binding PlayCommand}"
                 CommandParameter="0"
-                AutomationId="Play0"/>
+                AutomationId="Play0">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Win0}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
                 <Button Grid.Row="0"
                 Grid.Column="1"
                 BackgroundColor="#A9A9A9" 
                 TextColor="White"
+                CornerRadius="0"
                 Text="{Binding Play1}"
                 FontSize="40"
                 Command="{Binding PlayCommand}"
                 CommandParameter="1"
-                AutomationId="Play1"/>
-
+                AutomationId="Play1">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Win1}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
                 <Button Grid.Row="0"
                 Grid.Column="2"
                 BackgroundColor="#A9A9A9" 
                 TextColor="White"
+                CornerRadius="0"
                 Text="{Binding Play2}"
                 FontSize="40"
                 Command="{Binding PlayCommand}"
                 CommandParameter="2"
-                AutomationId="Play2"/>
-
+                AutomationId="Play2">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Win2}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
                 <Button Grid.Row="1"
                 Grid.Column="0"
                 BackgroundColor="#A9A9A9" 
                 TextColor="White"
+                CornerRadius="0"
                 Text="{Binding Play3}"
                 FontSize="40"
                 Command="{Binding PlayCommand}"
                 CommandParameter="3"
-                AutomationId="Play3"/>
-
+                AutomationId="Play3">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Win3}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
                 <Button Grid.Row="1"
                 Grid.Column="1"
                 BackgroundColor="#A9A9A9" 
                 TextColor="White"
+                CornerRadius="0"
                 Text="{Binding Play4}"
                 FontSize="40"
                 Command="{Binding PlayCommand}"
                 CommandParameter="4"
-                AutomationId="Play4"/>
-
+                AutomationId="Play4">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Win4}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
                 <Button Grid.Row="1"
                 Grid.Column="2"
                 BackgroundColor="#A9A9A9" 
                 TextColor="White"
+                CornerRadius="0"
                 Text="{Binding Play5}"
                 FontSize="40"
                 Command="{Binding PlayCommand}"
                 CommandParameter="5"
-                AutomationId="Play5"/>
-
+                AutomationId="Play5">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Win5}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
                 <Button Grid.Row="2"
                 Grid.Column="0"
                 BackgroundColor="#A9A9A9" 
                 TextColor="White"
+                CornerRadius="0"
                 Text="{Binding Play6}"
                 FontSize="40"
                 Command="{Binding PlayCommand}"
                 CommandParameter="6"
-                AutomationId="Play6"/>
-
+                AutomationId="Play6">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Win6}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
                 <Button Grid.Row="2"
                 Grid.Column="1"
                 BackgroundColor="#A9A9A9" 
                 TextColor="White"
+                CornerRadius="0"
                 Text="{Binding Play7}"
                 FontSize="40"
                 Command="{Binding PlayCommand}"
                 CommandParameter="7"
-                AutomationId="Play7"/>
-
+                AutomationId="Play7">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Win7}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
                 <Button Grid.Row="2"
                 Grid.Column="2"
                 BackgroundColor="#A9A9A9" 
                 TextColor="White"
+                CornerRadius="0"
                 Text="{Binding Play8}"
                 FontSize="40"
                 Command="{Binding PlayCommand}"
                 CommandParameter="8"
-                AutomationId="Play8"/>
+                AutomationId="Play8">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Win8}" Value="True">
+                            <Setter Property="BackgroundColor" Value="Green" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
                 <Label Grid.Row="3"
                Grid.ColumnSpan="3"
-               Margin="10"
-               HorizontalOptions="Center"
-               Text="{Binding CurrentStatus}"
-               AutomationId="CurrentStatus"/>
+               FontSize="16"
+               TextColor="{AppThemeBinding Light=Black, Dark=White}"
+               HorizontalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding IsMyturn}" Value="True">
+                            <Setter Property="Text" Value="It's Your turn, make a move!" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding IsMyturn}" Value="False">
+                            <Setter Property="Text" Value="Waiting for opponents move!" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding GameEnd}" Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
 
+               <Label Grid.Row="3"
+               Grid.ColumnSpan="3"
+               FontSize="20"
+               TextColor="{AppThemeBinding Light=Black, Dark=White}"
+               IsVisible="{Binding GameEnd}"
+               HorizontalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding YouWon}" Value="True">
+                            <Setter Property="Text" Value="You Won!!!!!!" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding YouWon}" Value="False">
+                            <Setter Property="Text" Value="You lost :(" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding Tie}" Value="True">
+                            <Setter Property="Text" Value="It's a tie!" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
 
             </Grid>
         </VerticalStackLayout>

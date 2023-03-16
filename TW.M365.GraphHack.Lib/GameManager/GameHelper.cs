@@ -8,42 +8,42 @@ namespace TW.M365.GraphHack.Lib.GameManager
 {
     public class GameHelper
     {
-        public static bool IsWinningMoveSet(List<int> moves)
+        public static string IsWinningMoveSet(List<int> moves)
         {
-            if(moves.Contains(1) && moves.Contains(2) && moves.Contains(3))
+            if (moves.Contains(1) && moves.Contains(2) && moves.Contains(3))
             {
-                return true;
+                return "1,2,3";
             }
-            if (moves.Contains(1) && moves.Contains(4) && moves.Contains(5))
+            if (moves.Contains(1) && moves.Contains(4) && moves.Contains(7))
             {
-                return true;
+                return "1,4,5";
             }
             if (moves.Contains(1) && moves.Contains(5) && moves.Contains(9))
             {
-                return true;
+                return "1,5,9";
             }
             if (moves.Contains(2) && moves.Contains(5) && moves.Contains(8))
             {
-                return true;
+                return "2,5,8";
             }
             if (moves.Contains(3) && moves.Contains(6) && moves.Contains(9))
             {
-                return true;
+                return "3,6,9";
             }
             if (moves.Contains(4) && moves.Contains(5) && moves.Contains(6))
             {
-                return true;
+                return "4,5,6";
             }
             if (moves.Contains(7) && moves.Contains(8) && moves.Contains(9))
             {
-                return true;
+                return "7,8,9";
             }
             if (moves.Contains(7) && moves.Contains(5) && moves.Contains(3))
             {
-                return true;
+                return "7,5,3";
             }
 
-            return false;
+            return "";
         }
     }
 }
