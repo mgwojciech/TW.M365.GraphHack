@@ -52,7 +52,7 @@ namespace TW.M365.GraphHack.Lib.Services
             }
             if (loadPhoto)
             {
-                result.AdditionalData.Add("photoBytes", myPhotoResponse.Result.Content.ReadAsByteArrayAsync().Result);
+               result.AdditionalData.Add("photoStream", myPhotoResponse.Result.Content.ReadAsStream());
             }
 
             return result;

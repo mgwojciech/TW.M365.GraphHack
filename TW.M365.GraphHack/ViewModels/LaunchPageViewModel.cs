@@ -23,6 +23,9 @@ namespace TW.M365.GraphHack.ViewModels
         public ObservableCollection<Game> games { get; set; }
 
         [ObservableProperty]
+        public ImageSource userPhoto = "graphgiraffe.png";
+
+        [ObservableProperty]
         public string userName = string.Empty;
 
         [ObservableProperty]
@@ -63,8 +66,9 @@ namespace TW.M365.GraphHack.ViewModels
         [RelayCommand]
         public async Task GetUser()
         {
-            User user = await PeopleService.GetUser();
+            User user = await PeopleService.GetUser(null, false, true);
             UserName = user.DisplayName;
+            UserPhoto = ImageSource.FromStream(() => user.AdditionalData["photoStream"] as Stream);
         }
 
         [RelayCommand]

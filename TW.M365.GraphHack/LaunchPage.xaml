@@ -46,7 +46,7 @@
                         <VerticalStackLayout Grid.Row="1" Margin="200,-80,0,0" WidthRequest="110" >
                             <Frame BorderColor="{AppThemeBinding Light=Black, Dark=White}" HorizontalOptions="Center" WidthRequest="110" HeightRequest="{OnPlatform iOS='110', Android='110'}" HasShadow="False" CornerRadius="55" Padding="0" IsClippedToBounds="True">
                                 <!-- App m365 profile image -->
-                                <Image Source="graphgiraffe.png" Aspect="AspectFill"/>
+                                <Image Source="{Binding UserPhoto}" Aspect="AspectFill"/>
                             </Frame>
                         </VerticalStackLayout>
                         <!-- Profile name & general description-->
